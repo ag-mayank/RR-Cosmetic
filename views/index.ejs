@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= pageTitle %></title><meta name="description" content="Browse our latest products.">
+<meta property="og:site_name" content="<%= siteName %>"><meta property="og:title" content="<%= pageTitle %>"><meta property="og:description" content="Browse our latest products."><meta property="og:type" content="website"><meta property="og:url" content="<%= baseUrl %>/">
+<link rel="stylesheet" href="/style.css"></head><body>
+<header class="topbar"><a class="brand" href="/"><%= siteName %></a><a class="admin-link" href="/admin">Admin</a></header>
+<main class="container"><section class="hero"><p class="eyebrow">OUR COLLECTION</p><h1>Find something you love.</h1><p>Browse our products and share your favourites on WhatsApp.</p></section>
+<% if (!products.length) { %><div class="empty"><h2>Your catalog is ready</h2><p>Add your first product from the Admin page.</p><a class="button" href="/admin">Open Admin</a></div><% } else { %>
+<section class="product-grid"><% products.forEach(product => { %><article class="card"><a class="image-link" href="/product/<%= encodeURIComponent(product.slug) %>"><img src="<%= product.image %>" alt="<%= product.name %>" loading="lazy"></a><div class="card-body"><h2><a href="/product/<%= encodeURIComponent(product.slug) %>"><%= product.name %></a></h2><% if (product.price !== null) { %><p class="price"><%= money(product.price) %></p><% } %><p class="description"><%= product.description %></p><div class="actions"><a class="button" href="/product/<%= encodeURIComponent(product.slug) %>">View product</a><a class="button whatsapp" target="_blank" rel="noopener" href="https://wa.me/?text=<%= encodeURIComponent(product.name + (product.price !== null ? ' — ' + money(product.price) : '') + '\n' + baseUrl + '/product/' + product.slug) %>">Share on WhatsApp</a></div></div></article><% }) %></section><% } %>
+</main><footer>© <%= new Date().getFullYear() %> <%= siteName %></footer></body></html>

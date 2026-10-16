@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= pageTitle %></title><meta name="description" content="<%= product.description || product.name %>">
+<link rel="canonical" href="<%= productUrl %>">
+<meta property="og:site_name" content="<%= siteName %>"><meta property="og:title" content="<%= product.name %>"><meta property="og:description" content="<%= product.description || product.name %>"><meta property="og:type" content="product"><meta property="og:url" content="<%= productUrl %>"><meta property="og:image" content="<%= imageUrl %>"><meta property="og:image:alt" content="<%= product.name %>"><meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/style.css"></head><body>
+<header class="topbar"><a class="brand" href="/"><%= siteName %></a><a class="admin-link" href="/admin">Admin</a></header>
+<main class="container detail-layout"><div><img class="detail-image" src="<%= product.image %>" alt="<%= product.name %>" style="max-width:520px;height:auto;object-fit:contain;display:block"></div><section class="detail-info"><a class="back-link" href="/">← All products</a><p class="eyebrow">PRODUCT DETAILS</p><h1><%= product.name %></h1><% if (product.price !== null) { %><p class="price large"><%= money(product.price) %></p><% } %><p class="detail-description"><%= product.description %></p><a class="button whatsapp wide" target="_blank" rel="noopener" href="https://wa.me/?text=<%= encodeURIComponent('Check out ' + product.name + (product.price !== null ? ' — ' + money(product.price) : '') + '\n' + productUrl) %>">Share on WhatsApp</a><p class="hint">Share this product link. WhatsApp can display its image preview when it fetches this page.</p><div class="copy-row"><input id="productUrl" value="<%= productUrl %>" readonly aria-label="Product link"><button class="button" onclick="navigator.clipboard.writeText(document.getElementById('productUrl').value).then(()=>this.textContent='Copied!')">Copy link</button></div></section></main>
+<footer>© <%= new Date().getFullYear() %> <%= siteName %></footer></body></html>
